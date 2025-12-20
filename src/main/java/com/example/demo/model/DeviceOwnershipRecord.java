@@ -18,6 +18,13 @@ public class DeviceOwnershipRecord {
     private LocalDate purchaseDate;
     private LocalDate warrantyExpiration;
     private Boolean active;
+    public Boolean getActive() {
+    return active;
+}
+
+public void setActive(Boolean active) {
+    this.active = active;
+}
 
 
 }
