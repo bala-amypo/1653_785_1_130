@@ -13,14 +13,31 @@ public class FraudAlertServiceImpl implements FraudAlertService {
     @Autowired
     private FraudAlertRecordRepository repo;
 
-    @Override
     public FraudAlertRecord createAlert(FraudAlertRecord alert) {
         return repo.save(alert);
     }
 
-    @Override
+    public void resolveAlert(Long id) {
+        FraudAlertRecord a = repo.findById(id).orElse(null);
+        if (a != null) {
+            a.setResolved(true);
+            repo.save(a);
+        }
+    }
+
+    public List<FraudAlertRecord> getAlertsBySerial(String serialNumber) {
+        return repo.findAll(); // simple
+    }
+
+    public List<FraudAlertRecord> getAlertsByClaim(Long claimId) {
+        return repo.findByClaimId(claimId);
+    }
+
+    public FraudAlertRecord getAlertById(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
     public List<FraudAlertRecord> getAllAlerts() {
         return repo.findAll();
     }
 }
-

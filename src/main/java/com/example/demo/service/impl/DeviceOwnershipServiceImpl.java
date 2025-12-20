@@ -5,7 +5,7 @@ import com.example.demo.entity.DeviceOwnershipRecord;
 import com.example.demo.repository.DeviceOwnershipRecordRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class DeviceOwnershipServiceImpl implements DeviceOwnershipService {
