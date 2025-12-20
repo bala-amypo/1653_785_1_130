@@ -19,4 +19,12 @@ public class FraudAlertRecord {
     private LocalDateTime alertDate = LocalDateTime.now();
 
     // getters and setters
+    public Boolean getResolved() {
+    return resolved;
+}
+
+public void setResolved(Boolean resolved) {
+    this.resolved = resolved;
+}
+
 }
