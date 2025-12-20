@@ -13,12 +13,18 @@ public class StolenDeviceServiceImpl implements StolenDeviceService {
     @Autowired
     private StolenDeviceReportRepository repo;
 
-    @Override
     public StolenDeviceReport reportStolen(StolenDeviceReport report) {
         return repo.save(report);
     }
 
-    @Override
+    public List<StolenDeviceReport> getReportsBySerial(String serialNumber) {
+        return repo.findBySerialNumber(serialNumber);
+    }
+
+    public StolenDeviceReport getReportById(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
     public List<StolenDeviceReport> getAllReports() {
         return repo.findAll();
     }

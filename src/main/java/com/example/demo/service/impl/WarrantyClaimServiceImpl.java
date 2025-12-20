@@ -13,12 +13,26 @@ public class WarrantyClaimServiceImpl implements WarrantyClaimService {
     @Autowired
     private WarrantyClaimRecordRepository repo;
 
-    @Override
     public WarrantyClaimRecord submitClaim(WarrantyClaimRecord claim) {
         return repo.save(claim);
     }
 
-    @Override
+    public void updateClaimStatus(Long id, String status) {
+        WarrantyClaimRecord c = repo.findById(id).orElse(null);
+        if (c != null) {
+            c.setStatus(status);
+            repo.save(c);
+        }
+    }
+
+    public WarrantyClaimRecord getClaimById(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    public List<WarrantyClaimRecord> getClaimsBySerial(String serialNumber) {
+        return repo.findBySerialNumber(serialNumber);
+    }
+
     public List<WarrantyClaimRecord> getAllClaims() {
         return repo.findAll();
     }
