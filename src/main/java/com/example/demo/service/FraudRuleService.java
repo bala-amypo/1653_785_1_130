@@ -7,5 +7,11 @@ public interface FraudRuleService {
 
     FraudRule createRule(FraudRule rule);
 
+    FraudRule updateRule(Long id, FraudRule rule);
+
+    List<FraudRule> getActiveRules();
+
+    FraudRule getRuleById(Long id);
+
     List<FraudRule> getAllRules();
 }
