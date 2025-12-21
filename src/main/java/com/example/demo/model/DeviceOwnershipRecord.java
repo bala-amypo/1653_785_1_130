@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsCnstructor;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 
 @Entity
 public class DeviceOwnershipRecord {
