@@ -2,6 +2,9 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsCnstructor;
 
 @Entity
 public class DeviceOwnershipRecord {
