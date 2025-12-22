@@ -26,7 +26,7 @@ public class FraudAlertServiceImpl implements FraudAlertService {
     }
 
     public List<FraudAlertRecord> getAlertsBySerial(String serialNumber) {
-        return repo.findAll(); // simple
+        return repo.findAll(); 
     }
 
     public List<FraudAlertRecord> getAlertsByClaim(Long claimId) {
