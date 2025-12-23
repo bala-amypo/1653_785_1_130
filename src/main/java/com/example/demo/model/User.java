@@ -1,5 +1,4 @@
 package com.example.demo.entity;
-
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -30,5 +29,4 @@ public class User {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // getters and setters
 }

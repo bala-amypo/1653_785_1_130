@@ -1,5 +1,4 @@
 package com.example.demo.entity;
-
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,6 @@ public class FraudRule {
 
     @Column(unique = true)
     private String ruleCode;
-
     private String description;
     private String ruleType;
     private Boolean active;

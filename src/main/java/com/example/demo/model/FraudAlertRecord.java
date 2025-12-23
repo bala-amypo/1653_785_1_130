@@ -15,7 +15,6 @@ public class FraudAlertRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long claimId;
     private String serialNumber;
     private String alertType;
@@ -24,7 +23,6 @@ public class FraudAlertRecord {
     private Boolean resolved = false;
     private LocalDateTime alertDate = LocalDateTime.now();
 
-    // getters and setters
     public Boolean getResolved() {
     return resolved;
 }
