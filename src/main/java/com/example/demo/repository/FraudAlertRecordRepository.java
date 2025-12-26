@@ -5,6 +5,7 @@ import com.example.demo.model.*;
 
 public interface FraudAlertRecordRepository {
     Optional<FraudAlertRecord> findById(Long id);
+    List<FraudAlertRecord> findByClaimId(Long claimId);
     List<FraudAlertRecord> findAll();
     FraudAlertRecord save(FraudAlertRecord f);
 }

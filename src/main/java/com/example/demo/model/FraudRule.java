@@ -11,4 +11,5 @@ public class FraudRule {
     private String ruleCode;
     private String ruleType;
     private String description;
+    private Boolean active = true;
 }
