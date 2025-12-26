@@ -19,13 +19,12 @@ public class FraudRuleController {
         this.service = service;
     }
 
-    // POST /api/fraud-rules
+    
     @PostMapping
     public FraudRule createRule(@RequestBody FraudRule rule) {
         return service.createRule(rule);
     }
 
-    // PUT /api/fraud-rules/{id}
     @PutMapping("/{id}")
     public FraudRule updateRule(
             @PathVariable Long id,
@@ -33,14 +32,12 @@ public class FraudRuleController {
         rule.setId(id);
         return service.createRule(rule);
     }
-
-    // GET /api/fraud-rules/active
     @GetMapping("/active")
     public List<FraudRule> getActive() {
         return service.getActiveRules();
     }
 
-    // GET /api/fraud-rules/{id}
+    
     @GetMapping("/{id}")
     public Optional<FraudRule> getById(@PathVariable Long id) {
         return service.getActiveRules()
@@ -49,7 +46,6 @@ public class FraudRuleController {
                 .findFirst();
     }
 
-    // GET /api/fraud-rules
     @GetMapping
     public List<FraudRule> getAll() {
         return service.getActiveRules();

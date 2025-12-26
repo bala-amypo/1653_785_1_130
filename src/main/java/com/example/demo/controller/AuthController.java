@@ -30,12 +30,11 @@ public class AuthController {
         this.jwt = jwt;
     }
 
-    // ================= REGISTER =================
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest req) {
 
         if (userRepo.findByEmail(req.getEmail()).isPresent()) {
-            // ❗ same response type
+          
             return ResponseEntity.status(409).build();
         }
 
@@ -62,7 +61,6 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponse(token));
     }
 
-    // ================= LOGIN =================
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest req) {
 
@@ -77,7 +75,7 @@ public class AuthController {
                                         user.getRoles())
                         )
                 ))
-                // ❗ return same generic type
+               
                 .orElse(ResponseEntity.status(401).build());
     }
 }

@@ -19,26 +19,25 @@ public class FraudAlertController {
         this.service = service;
     }
 
-    // POST /api/fraud-alerts
     @PostMapping
     public FraudAlertRecord create(@RequestBody FraudAlertRecord alert) {
         return service.createAlert(alert);
     }
 
-    // PUT /api/fraud-alerts/{id}/resolve
+
     @PutMapping("/{id}/resolve")
     public FraudAlertRecord resolve(@PathVariable Long id) {
         return service.resolveAlert(id);
     }
 
-    // GET /api/fraud-alerts/claim/{claimId}
+   
     @GetMapping("/claim/{claimId}")
     public List<FraudAlertRecord> getByClaim(
             @PathVariable Long claimId) {
         return service.getAlertsByClaim(claimId);
     }
 
-    // GET /api/fraud-alerts/{id}
+
     @GetMapping("/{id}")
     public Optional<FraudAlertRecord> getById(@PathVariable Long id) {
         return service.getAlertsByClaim(id)
@@ -47,7 +46,7 @@ public class FraudAlertController {
                 .findFirst();
     }
 
-    // GET /api/fraud-alerts
+
     @GetMapping
     public List<FraudAlertRecord> getAll() {
         return service.getAlertsByClaim(0L);

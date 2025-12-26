@@ -19,21 +19,19 @@ public class StolenDeviceController {
         this.service = service;
     }
 
-    // POST /api/stolen-devices
     @PostMapping
     public StolenDeviceReport reportStolen(
             @RequestBody StolenDeviceReport report) {
         return service.reportStolen(report);
     }
 
-    // GET /api/stolen-devices/serial/{serialNumber}
+
     @GetMapping("/serial/{serialNumber}")
     public List<StolenDeviceReport> getBySerial(
             @PathVariable String serialNumber) {
         return service.getReportsBySerial(serialNumber);
     }
 
-    // GET /api/stolen-devices/{id}
     @GetMapping("/{id}")
     public Optional<StolenDeviceReport> getById(
             @PathVariable Long id) {
@@ -43,7 +41,7 @@ public class StolenDeviceController {
                 .findFirst();
     }
 
-    // GET /api/stolen-devices
+  
     @GetMapping
     public List<StolenDeviceReport> getAll() {
         return service.getAllReports();
