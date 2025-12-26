@@ -1,19 +1,19 @@
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import com.example.demo.entity.FraudAlertRecord;
-import java.util.List;
+// import com.example.demo.entity.FraudAlertRecord;
+// import java.util.List;
 
-public interface FraudAlertService {
+// public interface FraudAlertService {
 
-    FraudAlertRecord createAlert(FraudAlertRecord alert);
+//     FraudAlertRecord createAlert(FraudAlertRecord alert);
 
-    void resolveAlert(Long id);
+//     void resolveAlert(Long id);
 
-    List<FraudAlertRecord> getAlertsBySerial(String serialNumber);
+//     List<FraudAlertRecord> getAlertsBySerial(String serialNumber);
 
-    List<FraudAlertRecord> getAlertsByClaim(Long claimId);
+//     List<FraudAlertRecord> getAlertsByClaim(Long claimId);
 
-    FraudAlertRecord getAlertById(Long id);
+//     FraudAlertRecord getAlertById(Long id);
 
-    List<FraudAlertRecord> getAllAlerts();
-}
+//     List<FraudAlertRecord> getAllAlerts();
+// }

@@ -1,17 +1,17 @@
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import com.example.demo.entity.FraudRule;
-import java.util.List;
+// import com.example.demo.entity.FraudRule;
+// import java.util.List;
 
-public interface FraudRuleService {
+// public interface FraudRuleService {
 
-    FraudRule createRule(FraudRule rule);
+//     FraudRule createRule(FraudRule rule);
 
-    FraudRule updateRule(Long id, FraudRule rule);
+//     FraudRule updateRule(Long id, FraudRule rule);
 
-    List<FraudRule> getActiveRules();
+//     List<FraudRule> getActiveRules();
 
-    FraudRule getRuleById(Long id);
+//     FraudRule getRuleById(Long id);
 
-    List<FraudRule> getAllRules();
-}
+//     List<FraudRule> getAllRules();
+// }
