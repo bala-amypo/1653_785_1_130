@@ -1,39 +1,35 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.service.DeviceOwnershipService;
-import com.example.demo.entity.DeviceOwnershipRecord;
-import com.example.demo.repository.DeviceOwnershipRecordRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 import java.util.*;
+import com.example.demo.model.*;
+import com.example.demo.repository.*;
 
-@Service
-public class DeviceOwnershipServiceImpl implements DeviceOwnershipService {
+public class DeviceOwnershipServiceImpl {
 
-    @Autowired
-    private DeviceOwnershipRecordRepository repo;
+    private final DeviceOwnershipRecordRepository repo;
 
-    public DeviceOwnershipRecord registerDevice(DeviceOwnershipRecord device) {
-        return repo.save(device);
+    public DeviceOwnershipServiceImpl(DeviceOwnershipRecordRepository repo) {
+        this.repo = repo;
     }
 
-    public void updateDeviceStatus(Long id, boolean active) {
-        DeviceOwnershipRecord d = repo.findById(id).orElse(null);
-        if (d != null) {
-            d.setActive(active);
-            repo.save(d);
-        }
+    public DeviceOwnershipRecord registerDevice(DeviceOwnershipRecord d) {
+        if (repo.existsBySerialNumber(d.getSerialNumber()))
+            throw new IllegalArgumentException();
+        return repo.save(d);
     }
 
-    public DeviceOwnershipRecord getBySerial(String serialNumber) {
-        return repo.findBySerialNumber(serialNumber).orElse(null);
-    }
-
-    public DeviceOwnershipRecord getById(Long id) {
-        return repo.findById(id).orElse(null);
+    public Optional<DeviceOwnershipRecord> getBySerial(String s) {
+        return repo.findBySerialNumber(s);
     }
 
     public List<DeviceOwnershipRecord> getAllDevices() {
         return repo.findAll();
+    }
+
+    public DeviceOwnershipRecord updateDeviceStatus(Long id, boolean active) {
+        DeviceOwnershipRecord d = repo.findById(id)
+                .orElseThrow(NoSuchElementException::new);
+        d.setActive(active);
+        return repo.save(d);
     }
 }

@@ -1,39 +1,66 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.service.WarrantyClaimService;
-import com.example.demo.entity.WarrantyClaimRecord;
-import com.example.demo.repository.WarrantyClaimRecordRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
+import com.example.demo.model.*;
+import com.example.demo.repository.*;
 
-@Service
-public class WarrantyClaimServiceImpl implements WarrantyClaimService {
+public class WarrantyClaimServiceImpl {
 
-    @Autowired
-    private WarrantyClaimRecordRepository repo;
+    private final WarrantyClaimRecordRepository claimRepo;
+    private final DeviceOwnershipRecordRepository deviceRepo;
+    private final StolenDeviceReportRepository stolenRepo;
+    private final FraudAlertRecordRepository alertRepo;
+    private final FraudRuleRepository ruleRepo;
 
-    public WarrantyClaimRecord submitClaim(WarrantyClaimRecord claim) {
-        return repo.save(claim);
+    public WarrantyClaimServiceImpl(
+            WarrantyClaimRecordRepository c,
+            DeviceOwnershipRecordRepository d,
+            StolenDeviceReportRepository s,
+            FraudAlertRecordRepository a,
+            FraudRuleRepository r) {
+        this.claimRepo = c;
+        this.deviceRepo = d;
+        this.stolenRepo = s;
+        this.alertRepo = a;
+        this.ruleRepo = r;
     }
 
-    public void updateClaimStatus(Long id, String status) {
-        WarrantyClaimRecord c = repo.findById(id).orElse(null);
-        if (c != null) {
-            c.setStatus(status);
-            repo.save(c);
-        }
+    public WarrantyClaimRecord submitClaim(WarrantyClaimRecord c) {
+        DeviceOwnershipRecord d = deviceRepo
+                .findBySerialNumber(c.getSerialNumber())
+                .orElseThrow(NoSuchElementException::new);
+
+        boolean flag = false;
+
+        if (claimRepo.existsBySerialNumberAndClaimReason(
+                c.getSerialNumber(), c.getClaimReason()))
+            flag = true;
+
+        if (d.getWarrantyExpiration() != null &&
+                d.getWarrantyExpiration().isBefore(LocalDate.now()))
+            flag = true;
+
+        if (stolenRepo.existsBySerialNumber(c.getSerialNumber()))
+            flag = true;
+
+        if (flag) c.setStatus("FLAGGED");
+
+        return claimRepo.save(c);
     }
 
-    public WarrantyClaimRecord getClaimById(Long id) {
-        return repo.findById(id).orElse(null);
+    public WarrantyClaimRecord updateClaimStatus(Long id, String status) {
+        WarrantyClaimRecord c = claimRepo.findById(id)
+                .orElseThrow(NoSuchElementException::new);
+        c.setStatus(status);
+        return claimRepo.save(c);
     }
 
-    public List<WarrantyClaimRecord> getClaimsBySerial(String serialNumber) {
-        return repo.findBySerialNumber(serialNumber);
+    public Optional<WarrantyClaimRecord> getClaimById(Long id) {
+        return claimRepo.findById(id);
     }
 
     public List<WarrantyClaimRecord> getAllClaims() {
-        return repo.findAll();
+        return claimRepo.findAll();
     }
 }

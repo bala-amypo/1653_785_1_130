@@ -1,43 +1,29 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.service.FraudAlertService;
-import com.example.demo.entity.FraudAlertRecord;
-import com.example.demo.repository.FraudAlertRecordRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
+import java.util.*;
+import com.example.demo.model.*;
+import com.example.demo.repository.*;
 
-@Service
-public class FraudAlertServiceImpl implements FraudAlertService {
+public class FraudAlertServiceImpl {
 
-    @Autowired
-    private FraudAlertRecordRepository repo;
+    private final FraudAlertRecordRepository repo;
 
-    public FraudAlertRecord createAlert(FraudAlertRecord alert) {
-        return repo.save(alert);
+    public FraudAlertServiceImpl(FraudAlertRecordRepository repo) {
+        this.repo = repo;
     }
 
-    public void resolveAlert(Long id) {
-        FraudAlertRecord a = repo.findById(id).orElse(null);
-        if (a != null) {
-            a.setResolved(true);
-            repo.save(a);
-        }
-    }
-
-    public List<FraudAlertRecord> getAlertsBySerial(String serialNumber) {
-        return repo.findAll(); 
-    }
-
-    public List<FraudAlertRecord> getAlertsByClaim(Long claimId) {
-        return repo.findByClaimId(claimId);
-    }
-
-    public FraudAlertRecord getAlertById(Long id) {
-        return repo.findById(id).orElse(null);
+    public FraudAlertRecord createAlert(FraudAlertRecord r) {
+        return repo.save(r);
     }
 
     public List<FraudAlertRecord> getAllAlerts() {
         return repo.findAll();
+    }
+
+    public FraudAlertRecord resolveAlert(Long id) {
+        FraudAlertRecord f = repo.findById(id)
+                .orElseThrow(NoSuchElementException::new);
+        f.setResolved(true);
+        return repo.save(f);
     }
 }

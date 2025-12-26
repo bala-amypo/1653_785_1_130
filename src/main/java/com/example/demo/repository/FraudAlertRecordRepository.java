@@ -1,11 +1,10 @@
 package com.example.demo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.demo.entity.FraudAlertRecord;
-import java.util.List;
+import java.util.*;
+import com.example.demo.model.*;
 
-public interface FraudAlertRecordRepository
-        extends JpaRepository<FraudAlertRecord, Long> {
-
-    List<FraudAlertRecord> findByClaimId(Long claimId);
+public interface FraudAlertRecordRepository {
+    Optional<FraudAlertRecord> findById(Long id);
+    List<FraudAlertRecord> findAll();
+    FraudAlertRecord save(FraudAlertRecord f);
 }

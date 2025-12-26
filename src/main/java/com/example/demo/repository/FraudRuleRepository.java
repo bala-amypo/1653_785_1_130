@@ -1,11 +1,9 @@
 package com.example.demo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.demo.entity.FraudRule;
-import java.util.List;
+import java.util.*;
+import com.example.demo.model.*;
 
-public interface FraudRuleRepository
-        extends JpaRepository<FraudRule, Long> {
-
-    List<FraudRule> findByActiveTrue();
+public interface FraudRuleRepository {
+    List<FraudRule> findAll();
+    FraudRule save(FraudRule r);
 }
