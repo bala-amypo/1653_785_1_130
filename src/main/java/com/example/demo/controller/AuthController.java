@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.example.demo.dto.*;
 import com.example.demo.model.User;
@@ -20,6 +20,9 @@ public class AuthController {
     }
 
     public ResponseEntity<?> register(RegisterRequest r) {
+        if (repo.findByEmail(r.getEmail()).isPresent())
+            return ResponseEntity.status(409).build();
+
         User u = User.builder()
                 .email(r.getEmail())
                 .password(encoder.encode(r.getPassword()))
@@ -34,6 +37,9 @@ public class AuthController {
 
     public ResponseEntity<?> login(AuthRequest r) {
         User u = repo.findByEmail(r.getEmail()).orElseThrow();
+        if (!encoder.matches(r.getPassword(), u.getPassword()))
+            return ResponseEntity.status(401).build();
+
         String token = jwt.createToken(u.getId(), u.getEmail(), u.getRoles());
         return ResponseEntity.ok(new AuthResponse(token));
     }

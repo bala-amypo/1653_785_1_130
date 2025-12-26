@@ -27,25 +27,22 @@ public class WarrantyClaimServiceImpl {
     }
 
     public WarrantyClaimRecord submitClaim(WarrantyClaimRecord c) {
-        DeviceOwnershipRecord d = deviceRepo
-                .findBySerialNumber(c.getSerialNumber())
+        DeviceOwnershipRecord d = deviceRepo.findBySerialNumber(c.getSerialNumber())
                 .orElseThrow(NoSuchElementException::new);
 
         boolean flag = false;
 
-        if (claimRepo.existsBySerialNumberAndClaimReason(
-                c.getSerialNumber(), c.getClaimReason()))
+        if (claimRepo.existsBySerialNumberAndClaimReason(c.getSerialNumber(), c.getClaimReason()))
             flag = true;
 
         if (d.getWarrantyExpiration() != null &&
-                d.getWarrantyExpiration().isBefore(LocalDate.now()))
+            d.getWarrantyExpiration().isBefore(LocalDate.now()))
             flag = true;
 
         if (stolenRepo.existsBySerialNumber(c.getSerialNumber()))
             flag = true;
 
         if (flag) c.setStatus("FLAGGED");
-
         return claimRepo.save(c);
     }
 
@@ -62,5 +59,9 @@ public class WarrantyClaimServiceImpl {
 
     public List<WarrantyClaimRecord> getAllClaims() {
         return claimRepo.findAll();
+    }
+
+    public List<WarrantyClaimRecord> getClaimsBySerial(String serial) {
+        return claimRepo.findBySerialNumber(serial);
     }
 }

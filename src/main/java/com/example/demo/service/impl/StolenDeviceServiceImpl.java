@@ -20,4 +20,12 @@ public class StolenDeviceServiceImpl {
                 .orElseThrow(NoSuchElementException::new);
         return stolenRepo.save(r);
     }
+
+    public List<StolenDeviceReport> getReportsBySerial(String serial) {
+        return stolenRepo.findBySerialNumber(serial);
+    }
+
+    public List<StolenDeviceReport> getAllReports() {
+        return stolenRepo.findAll();
+    }
 }

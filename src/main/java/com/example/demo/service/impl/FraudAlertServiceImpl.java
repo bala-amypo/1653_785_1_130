@@ -16,14 +16,14 @@ public class FraudAlertServiceImpl {
         return repo.save(r);
     }
 
-    public List<FraudAlertRecord> getAllAlerts() {
-        return repo.findAll();
-    }
-
     public FraudAlertRecord resolveAlert(Long id) {
         FraudAlertRecord f = repo.findById(id)
                 .orElseThrow(NoSuchElementException::new);
         f.setResolved(true);
         return repo.save(f);
+    }
+
+    public List<FraudAlertRecord> getAlertsByClaim(Long claimId) {
+        return repo.findByClaimId(claimId);
     }
 }

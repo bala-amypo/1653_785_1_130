@@ -13,10 +13,16 @@ public class FraudRuleServiceImpl {
     }
 
     public FraudRule createRule(FraudRule r) {
+        if (repo.findByRuleCode(r.getRuleCode()).isPresent())
+            throw new IllegalArgumentException();
         return repo.save(r);
     }
 
-    public List<FraudRule> getAllRules() {
-        return repo.findAll();
+    public List<FraudRule> getActiveRules() {
+        return repo.findByActiveTrue();
+    }
+
+    public Optional<FraudRule> getRuleByCode(String code) {
+        return repo.findByRuleCode(code);
     }
 }
