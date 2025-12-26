@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ServiceConfig {
 
-    // ---------------- Device Ownership ----------------
+   
     @Bean
     public DeviceOwnershipService deviceOwnershipService(
             DeviceOwnershipRecordRepository deviceRepo) {
@@ -17,7 +17,7 @@ public class ServiceConfig {
         return new DeviceOwnershipServiceImpl(deviceRepo);
     }
 
-    // ---------------- Warranty Claim ----------------
+ 
     @Bean
     public WarrantyClaimService warrantyClaimService(
             WarrantyClaimRecordRepository claimRepo,
@@ -30,7 +30,7 @@ public class ServiceConfig {
                 claimRepo, deviceRepo, stolenRepo, alertRepo, ruleRepo);
     }
 
-    // ---------------- Stolen Device ----------------
+   
     @Bean
     public StolenDeviceService stolenDeviceService(
             StolenDeviceReportRepository stolenRepo,
@@ -39,7 +39,6 @@ public class ServiceConfig {
         return new StolenDeviceServiceImpl(stolenRepo, deviceRepo);
     }
 
-    // ---------------- Fraud Rule ----------------
     @Bean
     public FraudRuleService fraudRuleService(
             FraudRuleRepository ruleRepo) {
@@ -47,7 +46,7 @@ public class ServiceConfig {
         return new FraudRuleServiceImpl(ruleRepo);
     }
 
-    // ---------------- Fraud Alert ----------------
+  
     @Bean
     public FraudAlertService fraudAlertService(
             FraudAlertRecordRepository alertRepo) {

@@ -142,7 +142,7 @@ public class RepositoryConfig {
         };
     }
 
-    // ---------------- FraudAlertRecordRepository ----------------
+ 
     @Bean
     public FraudAlertRecordRepository fraudAlertRecordRepository() {
         return new FraudAlertRecordRepository() {
