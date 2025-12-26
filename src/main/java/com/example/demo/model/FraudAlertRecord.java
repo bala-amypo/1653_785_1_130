@@ -1,34 +1,14 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 
-@Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class FraudAlertRecord {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long claimId;
-    private String serialNumber;
-    private String alertType;
-    private String severity;
-    private String message;
+
+    @Builder.Default
     private Boolean resolved = false;
-    private LocalDateTime alertDate = LocalDateTime.now();
-
-    public Boolean getResolved() {
-    return resolved;
-}
-
-public void setResolved(Boolean resolved) {
-    this.resolved = resolved;
-}
-
 }

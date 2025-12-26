@@ -1,11 +1,11 @@
 package com.example.demo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.demo.entity.WarrantyClaimRecord;
-import java.util.List;
+import java.util.*;
+import com.example.demo.model.*;
 
-public interface WarrantyClaimRecordRepository
-        extends JpaRepository<WarrantyClaimRecord, Long> {
-
-    List<WarrantyClaimRecord> findBySerialNumber(String serialNumber);
+public interface WarrantyClaimRecordRepository {
+    boolean existsBySerialNumberAndClaimReason(String s, String r);
+    Optional<WarrantyClaimRecord> findById(Long id);
+    List<WarrantyClaimRecord> findAll();
+    WarrantyClaimRecord save(WarrantyClaimRecord c);
 }

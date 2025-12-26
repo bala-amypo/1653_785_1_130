@@ -1,24 +1,12 @@
-package com.example.demo.entity;
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+package com.example.demo.model;
 
-@Entity
+import lombok.*;
+
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class StolenDeviceReport {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String serialNumber;
-    private String reportedBy;
-    private LocalDateTime reportDate;
-    private String details;
-
-    // getters and setters
 }
