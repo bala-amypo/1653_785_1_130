@@ -105,6 +105,23 @@ public class RepositoryConfig {
             }
         };
     }
+      @Bean
+    public UserRepository userRepository() {
+
+        // Anonymous implementation (NO DB, NO JPA)
+        return new UserRepository() {
+
+            @Override
+            public Optional<User> findByEmail(String email) {
+                return Optional.empty();
+            }
+
+            @Override
+            public User save(User user) {
+                return user;
+            }
+        };
+    }
 
     // ---------------- FraudRuleRepository ----------------
     @Bean
