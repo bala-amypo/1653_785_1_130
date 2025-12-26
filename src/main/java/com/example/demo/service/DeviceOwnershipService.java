@@ -1,35 +1,17 @@
-package com.example.demo.service.impl;
+package com.example.demo.service;
 
-import java.util.*;
-import com.example.demo.model.*;
-import com.example.demo.repository.*;
+import com.example.demo.entity.DeviceOwnershipRecord;
+import java.util.List;
 
-public class DeviceOwnershipServiceImpl {
+public interface DeviceOwnershipService {
 
-    private final DeviceOwnershipRecordRepository repo;
+    DeviceOwnershipRecord registerDevice(DeviceOwnershipRecord device);
 
-    public DeviceOwnershipServiceImpl(DeviceOwnershipRecordRepository repo) {
-        this.repo = repo;
-    }
+    void updateDeviceStatus(Long id, boolean active);
 
-    public DeviceOwnershipRecord registerDevice(DeviceOwnershipRecord d) {
-        if (repo.existsBySerialNumber(d.getSerialNumber()))
-            throw new IllegalArgumentException();
-        return repo.save(d);
-    }
+    DeviceOwnershipRecord getBySerial(String serialNumber);
 
-    public Optional<DeviceOwnershipRecord> getBySerial(String s) {
-        return repo.findBySerialNumber(s);
-    }
+    DeviceOwnershipRecord getById(Long id);
 
-    public List<DeviceOwnershipRecord> getAllDevices() {
-        return repo.findAll();
-    }
-
-    public DeviceOwnershipRecord updateDeviceStatus(Long id, boolean active) {
-        DeviceOwnershipRecord d = repo.findById(id)
-                .orElseThrow(NoSuchElementException::new);
-        d.setActive(active);
-        return repo.save(d);
-    }
+    List<DeviceOwnershipRecord> getAllDevices();
 }
