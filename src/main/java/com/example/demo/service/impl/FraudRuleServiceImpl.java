@@ -1,8 +1,8 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.model.FraudRule;
+import com.example.demo.repository.FraudRuleRepository;
 import java.util.*;
-import com.example.demo.model.*;
-import com.example.demo.repository.*;
 
 public class FraudRuleServiceImpl {
 
@@ -12,10 +12,11 @@ public class FraudRuleServiceImpl {
         this.repo = repo;
     }
 
-    public FraudRule createRule(FraudRule r) {
-        if (repo.findByRuleCode(r.getRuleCode()).isPresent())
-            throw new IllegalArgumentException();
-        return repo.save(r);
+    public FraudRule createRule(FraudRule rule) {
+        if (repo.findByRuleCode(rule.getRuleCode()).isPresent()) {
+            throw new IllegalArgumentException("Duplicate rule");
+        }
+        return repo.save(rule);
     }
 
     public List<FraudRule> getActiveRules() {

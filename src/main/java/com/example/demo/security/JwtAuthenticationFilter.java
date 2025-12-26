@@ -9,10 +9,10 @@ public class JwtAuthenticationFilter implements Filter {
     private final JwtTokenProvider provider;
     private final CustomUserDetailsService uds;
 
-    public JwtAuthenticationFilter(JwtTokenProvider p,
-                                   CustomUserDetailsService u) {
-        this.provider = p;
-        this.uds = u;
+    public JwtAuthenticationFilter(JwtTokenProvider provider,
+                                   CustomUserDetailsService uds) {
+        this.provider = provider;
+        this.uds = uds;
     }
 
     @Override
@@ -20,12 +20,11 @@ public class JwtAuthenticationFilter implements Filter {
                          FilterChain chain)
             throws IOException, ServletException {
 
-        HttpServletRequest r = (HttpServletRequest) req;
-        String auth = r.getHeader("Authorization");
+        HttpServletRequest request = (HttpServletRequest) req;
+        String header = request.getHeader("Authorization");
 
-        if (auth != null && auth.startsWith("Bearer ")) {
-            String token = auth.substring(7);
-            provider.validateToken(token);
+        if (header != null && header.startsWith("Bearer ")) {
+            provider.validateToken(header.substring(7));
         }
         chain.doFilter(req, res);
     }

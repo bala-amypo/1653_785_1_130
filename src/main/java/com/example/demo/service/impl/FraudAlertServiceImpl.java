@@ -1,8 +1,8 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.model.FraudAlertRecord;
+import com.example.demo.repository.FraudAlertRecordRepository;
 import java.util.*;
-import com.example.demo.model.*;
-import com.example.demo.repository.*;
 
 public class FraudAlertServiceImpl {
 
@@ -12,15 +12,14 @@ public class FraudAlertServiceImpl {
         this.repo = repo;
     }
 
-    public FraudAlertRecord createAlert(FraudAlertRecord r) {
-        return repo.save(r);
+    public FraudAlertRecord createAlert(FraudAlertRecord alert) {
+        return repo.save(alert);
     }
 
     public FraudAlertRecord resolveAlert(Long id) {
-        FraudAlertRecord f = repo.findById(id)
-                .orElseThrow(NoSuchElementException::new);
-        f.setResolved(true);
-        return repo.save(f);
+        FraudAlertRecord alert = repo.findById(id).orElseThrow();
+        alert.setResolved(true);
+        return repo.save(alert);
     }
 
     public List<FraudAlertRecord> getAlertsByClaim(Long claimId) {

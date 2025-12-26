@@ -1,8 +1,8 @@
 package com.example.demo.service.impl;
 
-import java.util.*;
-import com.example.demo.model.*;
+import com.example.demo.model.StolenDeviceReport;
 import com.example.demo.repository.*;
+import java.util.*;
 
 public class StolenDeviceServiceImpl {
 
@@ -15,10 +15,9 @@ public class StolenDeviceServiceImpl {
         this.deviceRepo = d;
     }
 
-    public StolenDeviceReport reportStolen(StolenDeviceReport r) {
-        deviceRepo.findBySerialNumber(r.getSerialNumber())
-                .orElseThrow(NoSuchElementException::new);
-        return stolenRepo.save(r);
+    public StolenDeviceReport reportStolen(StolenDeviceReport report) {
+        deviceRepo.findBySerialNumber(report.getSerialNumber()).orElseThrow();
+        return stolenRepo.save(report);
     }
 
     public List<StolenDeviceReport> getReportsBySerial(String serial) {

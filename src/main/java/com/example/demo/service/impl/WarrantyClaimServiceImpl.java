@@ -1,9 +1,9 @@
 package com.example.demo.service.impl;
 
-import java.time.LocalDate;
-import java.util.*;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
+import java.time.LocalDate;
+import java.util.*;
 
 public class WarrantyClaimServiceImpl {
 
@@ -26,42 +26,34 @@ public class WarrantyClaimServiceImpl {
         this.ruleRepo = r;
     }
 
-    public WarrantyClaimRecord submitClaim(WarrantyClaimRecord c) {
-        DeviceOwnershipRecord d = deviceRepo.findBySerialNumber(c.getSerialNumber())
-                .orElseThrow(NoSuchElementException::new);
+    public WarrantyClaimRecord submitClaim(WarrantyClaimRecord claim) {
+        DeviceOwnershipRecord device =
+                deviceRepo.findBySerialNumber(claim.getSerialNumber()).orElseThrow();
 
-        boolean flag = false;
-
-        if (claimRepo.existsBySerialNumberAndClaimReason(c.getSerialNumber(), c.getClaimReason()))
-            flag = true;
-
-        if (d.getWarrantyExpiration() != null &&
-            d.getWarrantyExpiration().isBefore(LocalDate.now()))
-            flag = true;
-
-        if (stolenRepo.existsBySerialNumber(c.getSerialNumber()))
-            flag = true;
-
-        if (flag) c.setStatus("FLAGGED");
-        return claimRepo.save(c);
+        if (claimRepo.existsBySerialNumberAndClaimReason(
+                claim.getSerialNumber(), claim.getClaimReason())
+                || device.getWarrantyExpiration().isBefore(LocalDate.now())
+                || stolenRepo.existsBySerialNumber(claim.getSerialNumber())) {
+            claim.setStatus("FLAGGED");
+        }
+        return claimRepo.save(claim);
     }
 
     public WarrantyClaimRecord updateClaimStatus(Long id, String status) {
-        WarrantyClaimRecord c = claimRepo.findById(id)
-                .orElseThrow(NoSuchElementException::new);
-        c.setStatus(status);
-        return claimRepo.save(c);
+        WarrantyClaimRecord claim = claimRepo.findById(id).orElseThrow();
+        claim.setStatus(status);
+        return claimRepo.save(claim);
     }
 
     public Optional<WarrantyClaimRecord> getClaimById(Long id) {
         return claimRepo.findById(id);
     }
 
-    public List<WarrantyClaimRecord> getAllClaims() {
-        return claimRepo.findAll();
-    }
-
     public List<WarrantyClaimRecord> getClaimsBySerial(String serial) {
         return claimRepo.findBySerialNumber(serial);
+    }
+
+    public List<WarrantyClaimRecord> getAllClaims() {
+        return claimRepo.findAll();
     }
 }
