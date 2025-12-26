@@ -10,7 +10,7 @@ import java.util.*;
 @Configuration
 public class RepositoryConfig {
 
-    // ---------------- DeviceOwnershipRecordRepository ----------------
+
     @Bean
     public DeviceOwnershipRecordRepository deviceOwnershipRecordRepository() {
         return new DeviceOwnershipRecordRepository() {
@@ -42,7 +42,6 @@ public class RepositoryConfig {
         };
     }
 
-    // ---------------- WarrantyClaimRecordRepository ----------------
     @Bean
     public WarrantyClaimRecordRepository warrantyClaimRecordRepository() {
         return new WarrantyClaimRecordRepository() {
@@ -74,7 +73,7 @@ public class RepositoryConfig {
         };
     }
 
-    // ---------------- StolenDeviceReportRepository ----------------
+    
     @Bean
     public StolenDeviceReportRepository stolenDeviceReportRepository() {
         return new StolenDeviceReportRepository() {
@@ -108,7 +107,6 @@ public class RepositoryConfig {
       @Bean
     public UserRepository userRepository() {
 
-        // Anonymous implementation (NO DB, NO JPA)
         return new UserRepository() {
 
             @Override
@@ -123,7 +121,6 @@ public class RepositoryConfig {
         };
     }
 
-    // ---------------- FraudRuleRepository ----------------
     @Bean
     public FraudRuleRepository fraudRuleRepository() {
         return new FraudRuleRepository() {
