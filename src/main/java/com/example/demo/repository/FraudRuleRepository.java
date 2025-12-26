@@ -1,11 +1,10 @@
 package com.example.demo.repository;
 
+import com.example.demo.model.FraudRule;
 import java.util.*;
-import com.example.demo.model.*;
 
 public interface FraudRuleRepository {
-    Optional<FraudRule> findByRuleCode(String code);
+    Optional<FraudRule> findByRuleCode(String ruleCode);
     List<FraudRule> findByActiveTrue();
-    List<FraudRule> findAll();
-    FraudRule save(FraudRule r);
+    FraudRule save(FraudRule rule);
 }

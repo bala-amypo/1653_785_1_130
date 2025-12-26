@@ -1,11 +1,12 @@
 package com.example.demo.repository;
 
+import com.example.demo.model.StolenDeviceReport;
 import java.util.*;
-import com.example.demo.model.*;
 
 public interface StolenDeviceReportRepository {
-    boolean existsBySerialNumber(String s);
-    List<StolenDeviceReport> findBySerialNumber(String s);
+    boolean existsBySerialNumber(String serial);
+    Optional<StolenDeviceReport> findById(Long id);
+    List<StolenDeviceReport> findBySerialNumber(String serial);
     List<StolenDeviceReport> findAll();
-    StolenDeviceReport save(StolenDeviceReport r);
+    StolenDeviceReport save(StolenDeviceReport report);
 }

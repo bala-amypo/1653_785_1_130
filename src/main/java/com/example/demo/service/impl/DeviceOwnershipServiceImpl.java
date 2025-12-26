@@ -1,8 +1,8 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.model.DeviceOwnershipRecord;
+import com.example.demo.repository.DeviceOwnershipRecordRepository;
 import java.util.*;
-import com.example.demo.model.*;
-import com.example.demo.repository.*;
 
 public class DeviceOwnershipServiceImpl {
 
@@ -12,24 +12,24 @@ public class DeviceOwnershipServiceImpl {
         this.repo = repo;
     }
 
-    public DeviceOwnershipRecord registerDevice(DeviceOwnershipRecord d) {
-        if (repo.existsBySerialNumber(d.getSerialNumber()))
-            throw new IllegalArgumentException();
-        return repo.save(d);
+    public DeviceOwnershipRecord registerDevice(DeviceOwnershipRecord record) {
+        if (repo.existsBySerialNumber(record.getSerialNumber())) {
+            throw new IllegalArgumentException("Duplicate serial");
+        }
+        return repo.save(record);
     }
 
-    public Optional<DeviceOwnershipRecord> getBySerial(String s) {
-        return repo.findBySerialNumber(s);
+    public DeviceOwnershipRecord updateDeviceStatus(Long id, boolean active) {
+        DeviceOwnershipRecord record = repo.findById(id).orElseThrow();
+        record.setActive(active);
+        return repo.save(record);
+    }
+
+    public Optional<DeviceOwnershipRecord> getBySerial(String serial) {
+        return repo.findBySerialNumber(serial);
     }
 
     public List<DeviceOwnershipRecord> getAllDevices() {
         return repo.findAll();
-    }
-
-    public DeviceOwnershipRecord updateDeviceStatus(Long id, boolean active) {
-        DeviceOwnershipRecord d = repo.findById(id)
-                .orElseThrow(NoSuchElementException::new);
-        d.setActive(active);
-        return repo.save(d);
     }
 }
