@@ -32,16 +32,13 @@ public class AuthController {
 
     // ================= REGISTER =================
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest req) {
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest req) {
 
-        // Check duplicate email
         if (userRepo.findByEmail(req.getEmail()).isPresent()) {
-            return ResponseEntity
-                    .status(409)
-                    .body("Email already exists");
+            // ❗ same response type
+            return ResponseEntity.status(409).build();
         }
 
-        // Default role if not provided
         Set<String> roles =
                 (req.getRoles() == null || req.getRoles().isEmpty())
                         ? Set.of("USER")
@@ -67,7 +64,7 @@ public class AuthController {
 
     // ================= LOGIN =================
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequest req) {
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest req) {
 
         return userRepo.findByEmail(req.getEmail())
                 .filter(user ->
@@ -80,10 +77,7 @@ public class AuthController {
                                         user.getRoles())
                         )
                 ))
-                .orElse(
-                        ResponseEntity
-                                .status(401)
-                                .body("Invalid email or password")
-                );
+                // ❗ return same generic type
+                .orElse(ResponseEntity.status(401).build());
     }
 }
