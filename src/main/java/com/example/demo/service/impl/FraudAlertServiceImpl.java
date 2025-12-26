@@ -2,9 +2,12 @@ package com.example.demo.service.impl;
 
 import com.example.demo.model.FraudAlertRecord;
 import com.example.demo.repository.FraudAlertRecordRepository;
-import java.util.*;
+import com.example.demo.service.FraudAlertService;
 
-public class FraudAlertServiceImpl {
+import java.util.List;
+
+public class FraudAlertServiceImpl
+        implements FraudAlertService {
 
     private final FraudAlertRecordRepository repo;
 
@@ -12,16 +15,19 @@ public class FraudAlertServiceImpl {
         this.repo = repo;
     }
 
+    @Override
     public FraudAlertRecord createAlert(FraudAlertRecord alert) {
         return repo.save(alert);
     }
 
+    @Override
     public FraudAlertRecord resolveAlert(Long id) {
         FraudAlertRecord alert = repo.findById(id).orElseThrow();
         alert.setResolved(true);
         return repo.save(alert);
     }
 
+    @Override
     public List<FraudAlertRecord> getAlertsByClaim(Long claimId) {
         return repo.findByClaimId(claimId);
     }
