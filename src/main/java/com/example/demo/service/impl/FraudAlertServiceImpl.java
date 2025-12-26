@@ -1,9 +1,7 @@
 package com.example.demo.service.impl;
-
 import com.example.demo.model.FraudAlertRecord;
 import com.example.demo.repository.FraudAlertRecordRepository;
 import com.example.demo.service.FraudAlertService;
-
 import java.util.List;
 
 public class FraudAlertServiceImpl

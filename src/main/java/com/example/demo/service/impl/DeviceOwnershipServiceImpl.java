@@ -3,7 +3,6 @@ package com.example.demo.service.impl;
 import com.example.demo.model.DeviceOwnershipRecord;
 import com.example.demo.repository.DeviceOwnershipRecordRepository;
 import com.example.demo.service.DeviceOwnershipService;
-
 import java.util.List;
 import java.util.Optional;
 
