@@ -119,8 +119,9 @@ public class RepositoryConfig {
                 return user;
             }
             @Override
-            public User find(){
-            return User.findAll();
+            public User findAll(){
+            return User;
+            }
             
         };
     }
