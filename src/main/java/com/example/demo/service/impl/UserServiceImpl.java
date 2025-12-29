@@ -77,7 +77,7 @@ import com.example.demo.service.UserService;
 
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import com.example.demo.entity.Role;
+// import com.example.demo.model.Role;
 
 @Service
 public class UserServiceImpl implements UserService {
