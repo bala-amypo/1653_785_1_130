@@ -104,24 +104,24 @@ public class RepositoryConfig {
             }
         };
     }
-      @Bean
-    public UserRepository userRepository() {
+    //   @Bean
+    // public UserRepository userRepository() {
 
-        return new UserRepository() {
+    //     return new UserRepository() {
 
-            @Override
-            public Optional<User> findByEmail(String email) {
-                return Optional.empty();
-            }
+    //         @Override
+    //         public Optional<User> findByEmail(String email) {
+    //             return Optional.empty();
+    //         }
 
-            @Override
-            public User save(User user) {
-                return user;
-            }
+    //         @Override
+    //         public User save(User user) {
+    //             return user;
+    //         }
        
             
-        };
-    }
+    //     };
+
 
     @Bean
     public FraudRuleRepository fraudRuleRepository() {
