@@ -1,12 +1,14 @@
 package com.example.demo.model;
 import lombok.*;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class FraudAlertRecord {
+      @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private Long claimId;
     private String serialNumber;
