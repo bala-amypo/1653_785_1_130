@@ -6,7 +6,7 @@ import javax.crypto.SecretKey;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.entity.Role;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -44,8 +44,8 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String generateToken(Long userId, String email, Role role) {
-        return generateToken(userId, email, role.name());
+    public String generateToken(Long userId, String email, String role) {
+        return generateToken(userId, email, role);
     }
 
 
