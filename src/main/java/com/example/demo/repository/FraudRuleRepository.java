@@ -4,7 +4,7 @@ import java.util.*;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FraudRuleRepository {
+public interface FraudRuleRepository extends JpaRepository<FraudRule,Long> {
     Optional<FraudRule> findByRuleCode(String ruleCode);
     List<FraudRule> findByActiveTrue();
     FraudRule save(FraudRule rule);

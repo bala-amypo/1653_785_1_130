@@ -3,7 +3,7 @@ import com.example.demo.model.WarrantyClaimRecord;
 import java.util.*;
 import org.springframework.stereotype.Repository;
 @Repository
-public interface WarrantyClaimRecordRepository {
+public interface WarrantyClaimRecordRepository extends JpaRepository<Wa {
     boolean existsBySerialNumberAndClaimReason(String serial, String reason);
     Optional<WarrantyClaimRecord> findById(Long id);
     List<WarrantyClaimRecord> findBySerialNumber(String serial);
