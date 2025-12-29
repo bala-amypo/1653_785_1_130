@@ -1,21 +1,33 @@
+// package com.example.demo.service;
+
+// import com.example.demo.model.User;
+
+// import java.util.List;
+// import java.util.Optional;
+
+// public interface UserService {
+
+//     User createUser(User user);
+
+//     Optional<User> getUserById(Long id);
+
+//     Optional<User> getUserByEmail(String email);
+
+//     List<User> getAllUsers();
+
+//     User updateUser(Long id, User user);
+
+//     void deleteUser(Long id);
+// }
 package com.example.demo.service;
 
-import com.example.demo.model.User;
-
-import java.util.List;
-import java.util.Optional;
+import com.example.demo.entity.User;
 
 public interface UserService {
 
-    User createUser(User user);
+    User register(User user);
 
-    Optional<User> getUserById(Long id);
+    User findByEmail(String email);
 
-    Optional<User> getUserByEmail(String email);
-
-    List<User> getAllUsers();
-
-    User updateUser(Long id, User user);
-
-    void deleteUser(Long id);
+    User findById(Long id);
 }
