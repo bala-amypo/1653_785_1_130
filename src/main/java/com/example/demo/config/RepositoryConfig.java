@@ -118,6 +118,10 @@ public class RepositoryConfig {
             public User save(User user) {
                 return user;
             }
+            @Override
+            public User find(){
+            return User.findAll();
+            
         };
     }
 
